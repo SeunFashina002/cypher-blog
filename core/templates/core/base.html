@@ -1,0 +1,189 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %} | cypher blog</title>
+
+    <link rel="stylesheet" href="{% static 'core/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/fontawesome.min.css' %}" />
+  </head>
+  <body>
+    <!-- nav bar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container pt-3">
+        <a href=" /" class="navbar-brand h1"> Blaqbox </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="#" class="nav-link text-dark"> About us</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#contact" class="nav-link text-dark"> Contact us </a>
+            </li>
+          </ul>
+
+            <form method="get" action="{% url 'search' %}" class="d-none d-lg-flex input-group" style="width: 35%">
+              <input type="text" name="query" class="form-control" placeholder="search" />
+
+              <!-- {% comment %} <input class="btn btn-dark" type="button" value="search" id="btn"/> {% endcomment %} -->
+            </form>
+
+        </div>
+      </div>
+    </nav>
+
+    
+    <!-- end nav bar -->
+
+    {% block heading %}
+
+    {% endblock %}
+
+  <!-- category -->
+
+  <section class="text-dark p-lg-5  mt-3 mt-md-5">
+      <div class="container">
+        <div id="navcategory">
+          <ul class="d-none d-md-flex justify-content-between align-items-center">
+
+        
+        <a href="/" class="category-link active">{{category_all}}</a>
+          {% for category in categories %}
+        
+          <li class="nav-item">
+            <a href="{% url 'frontpage' %}?query={{category.title}}" class="category-link"> {{category.title}} </a>
+          </li> 
+
+          {% endfor %}
+
+        
+      </ul>
+    </div>
+
+    <details class="d-md-none mt-5">
+      <summary>Category</summary>
+      <div class="category-div">
+        
+        <a href="/" class="category-link active">{{category_all}}</a>
+        {% for category in categories %}
+        <a href="{% url 'frontpage' %}?query={{category.title}}" class="category-mobile-link"><span>{{category.title}}</span></a>
+        {% endfor %}
+        
+      </div>
+    </details>
+
+    <hr />
+</section>
+
+
+  <!-- end category -->
+
+  <!-- block content -->
+
+
+  <section class="px-lg-5 p-2">
+    <div class="container">
+    
+      {% block content %} 
+    
+    
+      {% endblock %}
+    </div>
+
+  </section>
+
+
+    <!-- endblock content -->
+
+
+    <!-- news letter -->
+    <section class="newsletter-section pt-5 p-lg-5 text-dark">
+      <div class="container text-center">
+        <div>
+          <h2 class="h1">Subscribe To Our NewsLetter</h2>
+
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
+            iure veniam officiis quas nihil facere.
+          </p>
+          
+          
+          <form action="" method="GET" class="input-group input-group-md d-block d-md-flex">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="enter email adress" />
+
+            <button class="btn btn-success" type="submit" id="btn">
+              Subscribe Now
+            </button>
+          </form>
+
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Consequuntur, voluptatibus.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- end news letter -->
+    <!-- footer -->
+
+    <section class="bg-dark p-5 text-light">
+      <div class="container d-md-flex justify-content-between">
+        <div id="contact" class="contact-us">
+          <h2>Contact us</h2>
+          <p>tinfox@gmail.com</p>
+          <p>+234-802-815-7228</p>
+        </div>
+
+        <div class="links">
+          <h2>Links</h2>
+          <p><a href="#"> About us</a></p>
+          <p><a href="#"> Pricing </a></p>
+          <p><a href=""> developer </a></p>
+        </div>
+
+        <div class="follow-us text-center">
+          <h3>follow us</h3>
+          <a href="#" class="text-light mx-1">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+
+          <a href="#" class="text-light mx-1">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+
+          <a href="#" class="text-light mx-1">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+
+          <a href="#" class="text-light mx-1">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- end footer -->
+
+    <script src="{% static 'core/bootstrap.min.js' %}"></script>
+  </body>
+</html>

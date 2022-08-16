@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+
+{% block title %} frontpage {% endblock %} 
+
+
+{% block heading %}
+
+<!-- categories -->
+    <!-- intro -->
+        <section class="nav-cont text-dark p-5 text-center">
+            <div class="container">
+                
+                <div>
+                    <h1 style="font-weight: 800;" class="pb-3"> Cypher Blog </h1>
+                    
+                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus vitae reiciendis quae accusamus, velit necessitatibus! </p>
+                    
+                    <form method="get" action="{% url 'search' %}" class="d-lg-none input-group" style="width: 100%;">
+            
+                        <input
+                        type="text"
+                        name="query"
+                        class="form-control"
+                        placeholder="search"
+                        />
+                    </form>
+                    
+                </div>
+            </div>
+        </section>
+  <!-- end intro -->
+{% endblock %}
+
+{% block content %}
+
+    <!-- news column for mobile goes here -->
+    {% for post in posts %}
+    <div class="d-flex d-md-none align-items-center justify-content-between">
+      <div class="mobile-news-img">
+        <img src="{{post.image.url}}" class="img-fluid" alt="" />
+      </div>
+
+      <div class="mobile-news-text">
+        <a
+          class="text-decoration-none text-dark"
+          href="{% url 'post_detail' post.category.slug post.slug %}"
+        >
+          <h5>{{post.title}}</h5>
+        </a>
+
+        <div class="d-flex justify-content-start mb-2 justify-content-between">
+          <em class="text-primary"> <a style="text-decoration: none;" href="{% url 'category_detail' post.category.slug %}"> {{post.category}} </a></em>
+          <em class="text-primary">{{post.created_at|timesince}} ago</em>
+        </div>
+      </div>
+    </div>
+    <hr class="d-md-none"/>
+    {% endfor %}
+
+    <!-- news column for md and lg goes here.... -->
+
+    <div class="row g-4 d-none d-md-flex">
+      {% for post in posts %}
+      <div class="col-md-4">
+        <div class="card bg-light border-0">
+          <img src="{{post.image.url}}" class="news-img rounded img-fluid" alt="" />
+
+          <div
+            class="card-category d-flex justify-content-between p-1 align-items-center border border-primary mt-2 rounded"
+          >
+            <span> <a style="text-decoration: none ; font-size: 0.8rem;" href="{% url 'category_detail' post.category.slug %}"> {{post.category}} </a> </span>
+            <span style="font-size: 0.8rem;"> {{post.created_at|timesince}} ago </span>
+          </div>
+
+          <h5 class="card-title mt-3">{{post.title}}</h5>
+
+          <p>{{post.intro}}</p>
+
+          <a
+            href="{% url 'post_detail' post.category.slug post.slug %}"
+            class="btn btn-success"
+            style="width: 50%"
+          >
+            Read more</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock content %}
+

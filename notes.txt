@@ -1,0 +1,190 @@
+Build a custom comment section {optional for now : name, comment} or Login to sign up ***
+fix the inheritance issues for search and detail page       ***
+complete the subscribe to news letter functionality         ***
+fix the fontawsome icon issue
+
+
+Later ------------------------------
+ 
+authentication and authorization {admins}
+pagination
+Related pages
+login to comment
+
+.navbar,
+.nav-cont,
+.newsletter-section {
+  background-color: rgb(225, 247, 255);
+}
+
+.img-detail {
+  width: 100%;
+}
+
+body::before {
+  display: block;
+  content: "";
+  height: 50px;
+}
+
+.newsletter-section .container {
+  width: 100%;
+}
+.newsletter-section .input-group {
+  width: 100%;
+  justify-content: center;
+}
+.newsletter-section input {
+  width: 80%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid lightblue;
+}
+.nav-item {
+  list-style: none;
+}
+/* .active{
+    font-weight: 800;
+    text-decoration: 1px solid blue;
+} */
+
+.category-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+}
+.active {
+  font-weight: 900;
+  color: crimson;
+}
+
+.news-img {
+  width: 100%;
+}
+.card-category span {
+  font-weight: 600;
+}
+
+.links a,
+.contact-us p,
+.follow-us a {
+  text-decoration: none;
+  color: wheat;
+}
+.news-body a {
+  text-decoration: none;
+}
+
+/* comment form */
+
+.comment-div {
+  width: 100%;
+  padding: 1rem;
+}
+.comment-div input,
+textarea,
+button {
+  width: 100%;
+  margin: 2rem 0rem;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  outline: none;
+  border: 1px solid lightblue;
+  resize: none;
+}
+.users-comment {
+  box-shadow: 3px 3px 3px 3px lightgray;
+  border-radius: 1rem;
+  padding: auto;
+}
+
+/* end of comment form */
+
+@media (max-width: 767px) {
+  .category-mobile-link {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 1rem;
+    /* border: 1px solid lightblue; */
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+
+  .category-div {
+    margin-top: 1.5rem;
+  }
+
+  .active {
+    font-weight: 900;
+    color: crimson;
+  }
+
+  .mobile-news-img {
+    width: 25%;
+    max-width: 1000px;
+    margin-bottom: 1rem;
+  }
+  .mobile-news-text {
+    width: 70%;
+  }
+
+  .newsletter-section .container {
+    width: 100%;
+  }
+
+  .newsletter-section .input-group input {
+    outline: none;
+    border: 1px solid lightblue;
+    padding: 0.5rem;
+    margin-bottom: 0.8rem;
+    margin: 0.5rem auto;
+  }
+
+  .news-body {
+    width: 100%;
+  }
+  .news-body em {
+    font-size: 0.3rem;
+  }
+  .news-body h1 {
+    font-size: 1.5rem;
+  }
+}
+
+
+<!-- comment section TODO -->
+
+<section class="text-dark p-lg-5">
+  <div class="container">
+    <h3 class="mb-4 text-center">Comments</h3>
+
+    <form method="post">
+      {% csrf_token %}
+      
+      {{form.as_p}}
+
+    
+      <button
+        class="bg-success text-light rounded p-2"> submit comment
+      </button>
+
+    </form>
+
+    {% for comment in post.comments.all %}
+      <p class="fw-bold"> Anonymous </p>
+      <p> {{comment.body}} </p>
+      <p> {{comment.created_at|timesince}} </p>
+    {% endfor %}
+  </div>
+</section>
+
+<!--  -->
+
+
+form = CommentForm(request.POST)
+        if form.is_valid:
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+

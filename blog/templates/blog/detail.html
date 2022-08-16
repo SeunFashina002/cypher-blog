@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %} 
+
+{% block title %} 
+
+detail
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<!-- news detail or body -->
+<section class="p-1 ">
+  <div class="container">
+    <div class="news-body">
+      <h1 class="mb-4">{{post.title}}</h1>
+
+      <p class="h6">- {{post.created_at|date:'m-d-Y H:i'}}</p>
+
+      <div class="d-md-flex mt-3 mb-5">
+        <em class="fw-bold d-block mx-0">Kindly share this news</em>
+        <a href="#" class="text-primary mx-1">
+          <i class="fa-brands fa-facebook"></i>
+        </a>
+
+        <a href="#" class="text-primary mx-1">
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+
+        <a href="#" class="text-primary mx-1">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+
+        <a href="#" class="text-success mx-1">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+
+        <a href="#" class="text-secondary mx-1">
+          <i class="fa-solid fa-link"></i>
+        </a>
+      </div>
+
+      <img
+        src="{{post.image.url}}"
+        class="img-detail img-fluid"
+        alt=""
+      />
+
+      <p class="mt-5">{{post.paragraph_one}}</p>
+
+      <p>{{post.paragraph_two}}</p>
+
+      <p>{{post.paragraph_three}}</p>
+
+      <p>{{post.paragraph_four}}</p>
+    </div>
+  </div>
+</section>
+<!-- end news detail or body -->
+
+
+<!-- custom comment section TODO -->
+
+    <section class="text-dark p-lg-5">
+        <div class="container">
+          <div class="comment-div text-center">
+            <p> <em> Share your thoughts </em></p>
+            <form action="" method="post">
+              {% csrf_token %}
+              <input class="comment-name" type="text" name="name" placeholder="Name..">
+              <textarea class="comment-body" style="resize: none;" name="comments" id="" placeholder="what's on your mind" cols="50" rows="10"></textarea>
+              <button class="btn-success comment-btn  rounded-3 mt-3" type="submit"> Comment </button>
+            </form>
+          </div>
+          
+          <h3 class="my-5"> Comments </h3>
+          
+          {% for comment in post.comments.all %}
+          <div class="users-comment p-2 mb-5">
+            <div class="d-flex justify-content-between p-2">
+
+              <h2> {{comment.name}} </h2>
+              <p> <em> {{comment.created_at | timesince}} ago </em></p>
+
+            </div>
+            <p style="font-family: cursive ; padding: 0.8rem;" >{{comment.body}}</p>
+          </div>
+          {% endfor %}
+        </div>
+    </section>
+
+  <!-- end of custom comment section -->
+
+{% endblock content %}

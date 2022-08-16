@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+
+{% block title %} {{category.title}} {% endblock %} 
+
+
+{% block content %}
+ 
+    <!-- news column for mobile goes here -->
+    {% for post in category.posts.all %}
+    <div class="d-flex d-md-none align-items-center justify-content-between">
+      <div class="mobile-news-img">
+        <img src="{{ post.image.url }}" class="img-fluid" alt="" />
+      </div>
+
+      <div class="mobile-news-text">
+        <a
+          class="text-decoration-none text-dark"
+          href="{% url 'post_detail' post.category.slug post.slug %}"
+        >
+          <h6>{{post.title}}</h6>
+        </a>
+
+        <div class="d-flex justify-content-start justify-content-between">
+          <em class="text-primary">{{post.category}}</em>
+          <em class="text-primary">{{post.created_at|timesince}} ago</em>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- news column for md and lg goes here.... -->
+
+
+    <div class="row g-4 d-none d-md-flex">
+    {% for post in category.posts.all %}
+      <div class="col-md-4">
+        <div class="card bg-light border-0">
+          <img src="{{ post.image.url }}" class="news-img rounded img-fluid" alt="" />
+
+          <div
+            class="card-category d-flex justify-content-between p-1 align-items-center border border-primary mt-2 rounded"
+          >
+            <span> {{post.category}} </span>
+            <span> {{post.created_at|timesince}} ago </span>
+          </div>
+
+          <h5 class="card-title mt-3">{{post.title}}</h5>
+
+          <p>{{post.intro}}</p>
+
+          <a
+            href="{% url 'post_detail' post.category.slug post.slug %}"
+            class="btn btn-success"
+            style="width: 50%"
+          >
+            Read more</a
+          >
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock content %}
