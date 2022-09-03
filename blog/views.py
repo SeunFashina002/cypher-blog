@@ -58,30 +58,30 @@ def search(request):
     return render(request, 'blog/search.html', context)
 
 
-def sendMail(request):
+# def sendMail(request):
 
-    if request.method == "POST":
-        form = MailForm(request.POST)
-        if form.is_valid:
-            form.save()
-            title = form.cleaned_data.get("title")
-            msg = form.cleaned_data.get("message")
+#     if request.method == "POST":
+#         form = MailForm(request.POST)
+#         if form.is_valid:
+#             form.save()
+#             title = form.cleaned_data.get("title")
+#             msg = form.cleaned_data.get("message")
 
-        send_mail(
-            title,
-            msg,
-            '',
-            ['akoredebakare4u@gmail.com'],
-            fail_silently=False,
-        )
+#         send_mail(
+#             title,
+#             msg,
+#             '',
+#             ['akoredebakare4u@gmail.com'],
+#             fail_silently=False,
+#         )
 
-        return redirect("sendMail")
+#         return redirect("sendMail")
 
-    else:
-        form = MailForm()
+#     else:
+#         form = MailForm()
         
-    context={
-        "form" : form
-    }
+#     context={
+#         "form" : form
+#     }
 
-    return render(request, 'blog/admin.html', context)
+#     return render(request, 'blog/admin.html', context)
